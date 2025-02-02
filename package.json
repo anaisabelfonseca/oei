@@ -2,27 +2,40 @@
   "name": "oei",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/node": "^22.13.0",
     "@types/pg": "^8.11.11",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "copyfiles": "^2.4.1",
     "dotenv": "^16.4.7",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
     "ttypescript": "^1.5.15",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.21.2",
+    "mkdirp": "^3.0.1",
     "node-postgres": "^0.6.2",
     "pg": "^8.13.1",
     "postgres-migrations": "^5.3.0",
+    "react": "16",
+    "react-dom": "16",
     "yarn": "^1.22.22"
   },
   "scripts": {
     "compile": "tsc",
     "build-local": "rimraf dist && tsc && mkdirp dist/db/migrations && copyfiles -u 1 src/db/migrations/** dist/",
     "build": "rm -rf dist && tsc && cp -R ./src/db/migrations ./dist/db",
-    "dev": "nodemon --watch src -e ts --exec ts-node -r dotenv/config src/index.ts",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "dev:server": "nodemon --watch src -e ts --exec ts-node -r dotenv/config src/index.ts",
+    "dev:client": "vite",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\""
   }
 }

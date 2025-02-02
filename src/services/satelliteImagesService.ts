@@ -3,7 +3,25 @@ import type { SatelliteImageFilters as ImageFilters } from 'models/SatelliteImag
 
 // Fetch all satellite images with optional filters
 export const getSatelliteImages = async (filters: ImageFilters) => {
-  let query = 'SELECT * FROM satellite_images WHERE 1=1';
+
+  // ST_AsGeoJSON(geometry)::json AS geometry deconstructs the geometry binary
+  let query = `
+    SELECT 
+        catalog_id, 
+        image_name, 
+        acquisition_start_date, 
+        acquisition_end_date, 
+        cloud_coverage, 
+        scan_direction, 
+        satellite_elevation, 
+        resolution, 
+        sensor, 
+        image_bands, 
+        ST_AsGeoJSON(geometry)::json AS geometry
+    FROM satellite_images
+    WHERE 1=1
+`;
+
   const values: any[] = [];
 
   // Filters date as: acquisition date equals or higher than input
@@ -26,6 +44,7 @@ export const getSatelliteImages = async (filters: ImageFilters) => {
   if(result.rowCount == 0) {
     return 0;
   }
+
   return result.rows;
 };
 

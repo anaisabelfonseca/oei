@@ -1,0 +1,39 @@
+services:
+  app:
+    build: .
+    container_name: oei-app
+    ports:
+      - "3002:3002"
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy  # Ensures DB is fully ready before app starts
+    networks:
+      - oei_network  # Ensure containers are on the same network
+    restart: always  # Auto-restarts on failure
+
+  db:
+    container_name: oei-db
+    image: postgis/postgis:10-2.5  # Adds PostGIS support
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: oei-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - oei_network
+    healthcheck:  # Ensures DB is up before starting the app
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always  # Ensures DB restarts if it crashes
+
+volumes:
+  db-data:
+
+networks:
+  oei_network:  # Define a shared network

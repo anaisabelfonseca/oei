@@ -38,10 +38,12 @@ export default function App() {
   .then(data => console.log("Order Created:", data))
   .catch(error => console.error("Error creating order:", error));
 
-}
+  }
 
   const handleRetrieveOrders = () => {
-    fetch("/api/orders")
+    fetch("/api/orders", {
+    method: "GET",
+    })
       .then((response) => response.json())
       .then((data) => console.log("All Orders:", data))
       .catch((error) => console.error("Error retrieving orders:", error));

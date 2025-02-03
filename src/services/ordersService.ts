@@ -24,7 +24,7 @@ export const postOrder = async (catalogId: string, customerName: string): Promis
     const query = `
       SELECT * FROM orders
       ORDER BY order_date DESC
-      LIMIT $1 OFFSET $2;
+      LIMIT $1;
     `;
     const values = [limit];
   

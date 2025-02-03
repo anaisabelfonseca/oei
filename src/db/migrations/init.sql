@@ -23,7 +23,7 @@ CREATE TABLE satellite_images (
 -- Create orders table with image key
 CREATE TABLE orders (
     order_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    catalog_id UUID UNIQUE NOT NULL REFERENCES satellite_images(catalog_id),
+    catalog_id UUID NOT NULL REFERENCES satellite_images(catalog_id),
     customer_name TEXT NOT NULL,
     order_date TIMESTAMP DEFAULT NOW()
 );

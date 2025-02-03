@@ -24,9 +24,8 @@ export const listOrders = async (req: Request, res: Response, next: NextFunction
   try {
     // For pagination
     const limit = parseInt(req.query.limit as string) || 10;
-    const offset = parseInt(req.query.offset as string) || 0;
 
-    const orders = await getAllOrders(limit, offset);
+    const orders = await getAllOrders(limit);
     res.json(orders);
   } catch (error) {
     next(error);

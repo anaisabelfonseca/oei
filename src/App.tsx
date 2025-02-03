@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 
 export default function App() {
   const handleRetrieveImages = () => {
@@ -47,11 +48,7 @@ export default function App() {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px" }}>
-    {/* <div>
-      <h1>Satellite Image Selection</h1>
-      <SatelliteImageList />
-    </div> */}
+    <div className="container">
       <h1>Satellite Image Dashboard</h1>
       <button onClick={handleRetrieveImages}>Retrieve All Images</button>
       <button onClick={handleGetImageDetails}>Get Image Details</button>

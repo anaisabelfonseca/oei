@@ -50,11 +50,11 @@ While the containers are running:
 - Frontend is very minimal as time for implementation was limited and focused on implementing the infrastructure. It will not be possible to view the website as I did not deploy it. Both of these are due to the same reasoning: one weekend to make this work locally and containerize and the communication within containers.
 
 ## Component Diagram
-- Client (React Frontend): Sends API requests to the backend.
-- Router: Maps requests to controllers.
-- Controllers: Process API requests, validate data, and call the service layer.
-- Services: Contain the business logic and interact with the database.
-- Database (PostgreSQL with PostGIS): Stores satellite images and orders.
+- **Client (React Frontend)**: Sends API requests to the backend.
+- **Router**: Maps requests to controllers.
+- **Controllers**: Process API requests, validate data, and call the service layer.
+- **Services**: Contain the business logic and interact with the database.
+- **Database** (PostgreSQL with PostGIS): Stores satellite images and orders.
 ![Components Diagram](docs/components.png)
 
 #### Proof that OEI has a very pretty dashboard

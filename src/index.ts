@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3002;
 
 // Middleware
 app.use(cors()); // Enable CORS for cross-origin requests
-app.use(express.json()); // Parse JSON request bodies
+app.use(express.json()); // Parse JSON request bodies for POST orders and for Get filtered images
 
 // Test route
 app.get('/', (req, res) => {
@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 // Register API routes
 app.use('/api', imageRoutes);
 app.use('/api', orderRoutes);
+
 
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {

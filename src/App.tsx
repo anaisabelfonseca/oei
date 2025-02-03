@@ -47,11 +47,30 @@ export default function App() {
       .catch((error) => console.error("Error retrieving orders:", error));
   };
 
+  const handleFilterImagesByGeometry = () => {
+    const geoJSON = prompt("Enter geoJSON to filter images:");
+    if (!geoJSON) return;
+
+    // Encode the GeoJSON as a query parameter
+    const encodedGeoJSON = encodeURIComponent(geoJSON);
+
+    fetch(`/api/images/filter?geoJSON=${encodedGeoJSON}`, {
+      method: "GET", 
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => console.log("Filtered Images:", data))
+      .catch((error) => console.error("Error fetching images:", error));
+  }
+
   return (
     <div className="container">
       <h1>Satellite Image Dashboard</h1>
       <button onClick={handleRetrieveImages}>Retrieve All Images</button>
       <button onClick={handleGetImageDetails}>Get Image Details</button>
+      <button onClick={handleFilterImagesByGeometry}>Filter Images by GeoJSON</button>
       <button onClick={handlePlaceOrder}>Place Order</button>
       <button onClick={handleRetrieveOrders}>Retrieve All Orders</button>
     </div>

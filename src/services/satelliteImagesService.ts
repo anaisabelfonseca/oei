@@ -1,4 +1,5 @@
 import db from '../db/db';
+import wellknown, { GeoJSONGeometry } from "wellknown"; // Convert GeoJSON to WKT
 import type { SatelliteImageFilters as ImageFilters } from 'models/SatelliteImagesFilters.types';
 
 // Fetch all satellite images with optional filters
@@ -19,8 +20,7 @@ export const getSatelliteImages = async (filters: ImageFilters) => {
         image_bands, 
         ST_AsGeoJSON(geometry)::json AS geometry
     FROM satellite_images
-    WHERE 1=1
-`;
+    WHERE 1=1`;
 
   const values: any[] = [];
 
@@ -35,11 +35,6 @@ export const getSatelliteImages = async (filters: ImageFilters) => {
     values.push(filters.cloudCoverage);
   }
 
-  if (filters.geoJSON) {
-    query += ` AND ST_Intersects(geometry, ST_GeomFromGeoText(${values.length + 1}))`;
-    values.push(JSON.stringify(filters.geoJSON));
-  }
-
   const result = await db.query(query, values);
   if(result.rowCount == 0) {
     return 0;
@@ -47,6 +42,38 @@ export const getSatelliteImages = async (filters: ImageFilters) => {
 
   return result.rows;
 };
+
+// Fetch all satellite images with location filter
+export const getFilteredSatelliteImages = async (geoJSON : any) => {
+
+  const geoJSONString = JSON.stringify(geoJSON);
+
+  let query = `
+    SELECT 
+        catalog_id, 
+        image_name, 
+        acquisition_start_date, 
+        acquisition_end_date, 
+        cloud_coverage, 
+        scan_direction, 
+        satellite_elevation, 
+        resolution, 
+        sensor, 
+        image_bands, 
+        ST_AsGeoJSON(geometry)::json AS geometry
+    FROM satellite_images
+    WHERE ST_Intersects(geometry, ST_GeomFromGeoJSON($1)::geometry)
+  `;
+
+  const result = await db.query(query, [geoJSONString]);
+
+  if (result.rowCount === 0) {
+    return [];
+  }
+
+  return result;
+};
+
 
 // Fetch a single image by ID
 export const getImageById = async (catalogId: string) => {

@@ -7,6 +7,7 @@ The **Orbital Edge Imaging API** is a RESTful API for searching, ordering, and m
 ### Features
 - **Retrieve all available satellite images**
 To get all images, we use `api/images` route, it has available filters for: acquisition date, cloud coverage, and geometry, which verifies if the locations intersect. To use these filters use this route: `api/images?cloudCoverage=&{val}` and/or `api/images?acquisitionDate=&{val}`.
+- Added GeoJSON filtering by inserting a json i.e. {"coordinates": [-8.614543381661207,41.1445848918807],"type": "Point"}, you can filter images by intersection, however did it an a different endpoint `/api/images/filter?geoJSON=${encodedGeoJSON}`.
 
 - **Get details of a specific satellite image**
 To get the specified image, you can use `api/image/[catalogId]`, you can get the id from the list.

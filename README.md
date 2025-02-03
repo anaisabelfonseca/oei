@@ -10,13 +10,16 @@ The **Orbital Edge Imaging API** is a RESTful API for searching, ordering, and m
 - Frontend is very minimal as time for implementation was limited and focused on implementing the infrastructure. It will not be possible to view the website as I did not deploy it. Both of these are due to the same reasoning: one weekend to make this work locally and containerize and the communication within containers.
 
 #### Features
-**Retrieve all available satellite images**
+- **Retrieve all available satellite images**
 To get all images, we use `api/images` route, it has available filters for: acquisition date, cloud coverage, and geometry, which verifies if the locations intersect. To use these filters use this route: `api/images?cloudCoverage=&{val}` and/or `api/images?acquisitionDate=&{val}`.
-**Get details of a specific satellite image**
+
+- **Get details of a specific satellite image**
 To get the specified image, you can use `api/image/[catalogId]`, you can get the id from the list.
-**Place an order for a satellite image**
+
+- **Place an order for a satellite image**
 To make an order, the user simply inputs the `catalog Id` from UI and their name. If Id is invalid, order is not processed, but app does not crash. The endpoint should be POST `api/orders`.
-**Retrieve all orders**
+
+- **Retrieve all orders**
 To retrieve all listed orders use GET `api/orders`,  you can set a limit of orders you want to retrieve, which basically is a starting point for pagination by `api/orders?limit=&{val}`
 
 
@@ -31,7 +34,6 @@ After cloning the repository locally and making sure you have `yarn` installed:
 4. Run `docker-compose up -d --build` - builds and runs the containers. You can run `docker ps` to check build status, but after running, docker desktop should look like:
 ![Docker](docs/docker.png)
 
-
 ### Populating the database in Docker
 
 While the containers are running:
@@ -44,3 +46,7 @@ While the containers are running:
 ### Running locally considerations
 1. Change .env DB_HOST to 'localhost' instead of 'db'.
 - You have to create the database locally (this can be automated in the future, with a script).
+2. `yarn install && yarn dev`
+
+![Dashboard](docs/dashboard.png)
+Proof that OEI has a very pretty dashboard

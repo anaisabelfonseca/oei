@@ -1,5 +1,4 @@
 import db from '../db/db';
-import wellknown, { GeoJSONGeometry } from "wellknown"; // Convert GeoJSON to WKT
 import type { SatelliteImageFilters as ImageFilters } from 'models/SatelliteImagesFilters.types';
 
 // Fetch all satellite images with optional filters

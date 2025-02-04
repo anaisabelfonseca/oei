@@ -1,7 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-// import db from './db/db'; // Database connection & migrations
 import imageRoutes from './routing/satelliteImagesRoutes';
 import orderRoutes from './routing/ordersRoutes';
 
@@ -10,7 +9,7 @@ dotenv.config();
 
 // Initialize Express app
 const app = express();
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3003;
 
 // Middleware
 app.use(cors()); // Enable CORS for cross-origin requests
@@ -35,13 +34,6 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 // Start the server
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
-
-  try {
-    //await db.runMigrations(); // Run database migrations on startup
-    console.log('Database connected & migrations applied');
-  } catch (error) {
-    console.error('Database connection error:', error);
-  }
 });
 
 

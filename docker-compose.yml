@@ -3,7 +3,7 @@ services:
     build: .
     container_name: oei-app
     ports:
-      - "3002:3002"
+      - "3003:3003"
     env_file: .env
     depends_on:
       db:
@@ -25,7 +25,7 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       - oei_network
-    healthcheck:  # Ensures DB is up before starting the app
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s

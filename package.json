@@ -29,6 +29,7 @@
     "postgres-migrations": "^5.3.0",
     "react": "16",
     "react-dom": "16",
+    "rimraf": "3",
     "wellknown": "^0.5.0",
     "yarn": "^1.22.22"
   },
@@ -36,7 +37,7 @@
     "compile": "tsc",
     "build-local": "rimraf dist && tsc && mkdirp dist/db/migrations && copyfiles -u 1 src/db/migrations/** dist/",
     "build": "rm -rf dist && tsc && cp -R ./src/db/migrations ./dist/db",
-    "start": "node dist/index.js",
+    "start": "node dist/src/index.js",
     "dev:server": "nodemon --watch src -e ts --exec ts-node -r dotenv/config src/index.ts",
     "dev:client": "vite",
     "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\""
